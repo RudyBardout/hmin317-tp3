@@ -79,14 +79,6 @@ MainWidget::~MainWidget()
 
 void MainWidget::keyPressEvent(QKeyEvent *e)
 {
-
-    Counter a, b;
-        QObject::connect(&a, SIGNAL(valueChanged(int)),
-                         &b, SLOT(setValue(int)));
-
-        a.setValue(12);     // a.value() == 12, b.value() == 12
-        b.setValue(48);     // a.value() == 12, b.value() == 48
-
     if(e->key() == Qt::Key_Z)
     {
         projection.translate(0,1,0);
@@ -163,9 +155,34 @@ void MainWidget::timerEvent(QTimerEvent *)
 
         // Request an update
         update();
+
+        // Si le temps = 10s, alors changement de saison.
+    int cpt = 0;
+       QTimer::singleShot(10000, this, SLOT(changeSeason(&season));
     //}
 }
 //! [1]
+
+
+void MainWidget::changeSeason(string season)
+{
+    if(season == " winter")
+    {
+        season = "spring";
+    }
+    else if(season == " spring")
+    {
+        season = "summer";
+    }
+    else if(season == " summer")
+    {
+        season = "automn";
+    }
+    else if(season == " automn")
+    {
+        season = "winter";
+    }
+}
 
 void MainWidget::initializeGL()
 {
